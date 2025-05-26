@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $host = "mysql"; 
 $dbname = "database";  
 $charset = "utf8mb4";
@@ -25,7 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($password, $user['password'])) {
-        echo "Inloggen succesvol!";
+     $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+
+        // 👉 Doorsturen naar beveiligde pagina
+        header("Location: secure.php");              
+        exit;
+
     } else {
         echo "Ongeldige gebruikersnaam of wachtwoord.";
     }
