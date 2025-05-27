@@ -1,4 +1,4 @@
-<?php
+<?php //verbind met de database
 $host = 'mysql'; 
 $db   = 'oefenopdracht2';  
 $user = 'root';
@@ -7,7 +7,7 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // JOIN-query om gebruiker + game op te halen
+   //join query om gebruikers en hun spellen op te halen
     $stmt = $pdo->query("
         SELECT users.naam AS gebruiker, games.title AS game
         FROM user_games
@@ -15,7 +15,7 @@ try {
         JOIN games ON user_games.game_id = games.id
         ORDER BY gebruiker;
     ");
-
+    // Haal de resultaten op en toon ze in een lijst
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if ($results) {
@@ -24,13 +24,13 @@ try {
             echo "<li><strong>" . htmlspecialchars($row['gebruiker']) . "</strong> speelt <em>" . htmlspecialchars($row['game']) . "</em></li>";
         }
         echo "</ul>";
-    } else {
+    } else { // Als er geen resultaten zijn, geef foutmelding
         echo "Geen koppelingen gevonden.";
     }
 } catch (PDOException $e) {
     echo "Fout bij verbinden of query: " . $e->getMessage();
 }
-
+// toon een lijst met alle gebruikers
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
