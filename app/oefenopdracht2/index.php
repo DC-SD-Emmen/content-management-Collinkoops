@@ -17,7 +17,7 @@ try {
     ");
     // Haal de resultaten op en toon ze in een lijst
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    echo "<h1>Gebruikers en hun spellen</h1>";
     if ($results) {
         echo "<ul>";
         foreach ($results as $row) {
@@ -36,7 +36,8 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $pdo->query("SELECT id, naam FROM users");
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+// als er gebruikers zijn, toon ze in een lijst anders geef een foutmelding
+    echo "<h2>Lijst van gebruikers:</h2>";
     if ($users) {
         echo "<ul>";
         foreach ($users as $user) {
@@ -52,3 +53,14 @@ try {
 
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>oefenopdracht 2</title>
+</head>
+<body>
+    
+</body>
+</html>
